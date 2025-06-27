@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>MapleStory Equipment Input</title>
+    <!-- Load custom font (optional but thematic) -->
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  <!-- Link to external CSS file -->
+  <link rel="stylesheet" href="style.css">
+  
+</head>
+<body>
+
+  <h1>MapleStory Equipment Tracker</h1>
+  
+
+  <form id="equipForm">
+    <table>
+      <thead>
+        <tr>
+          <th>Equipment Slot</th>
+          <th>Item Level</th>
+          <th>Flame Score</th>
+          <th>Potential %</th>
+        </tr>
+      </thead>
+      <tbody id="equipmentTable">
+        <!-- Rows will be injected by JS -->
+      </tbody>
+    </table>
+
+    <button type="submit">Submit All</button>
+  </form>
+
+  <script>
+    const slots = [
+      "Ring 1", "Ring 2", "Ring 3", "Ring 4",
+      "Pendant 1", "Pendant 2", "Belt", "Hat",
+      "Face", "Eye", "Top", "Bottom", "Shoes",
+      "Earring", "Shoulder", "Glove", "Cape", "Heart"
+    ];
+
+    const table = document.getElementById("equipmentTable");
+
+    slots.forEach(slot => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${slot}</td>
+        <td><input type="number" name="${slot}_level" min="0" /></td>
+        <td><input type="number" name="${slot}_flame" min="0" /></td>
+        <td><input type="number" name="${slot}_potential" min="0" max="100" /></td>
+      `;
+      table.appendChild(row);
+    });
+
+    document.getElementById("equipForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const formData = new FormData(e.target);
+      const data = {};
+
+      slots.forEach(slot => {
+        data[slot] = {
+          itemLevel: Number(formData.get(`${slot}_level`)) || 0,
+          flameScore: Number(formData.get(`${slot}_flame`)) || 0,
+          potential: Number(formData.get(`${slot}_potential`)) || 0
+        };
+      });
+
+      console.log("Submitted Equipment Data:", data);
+      alert("Equipment data collected. Check the console or send to your backend.");
+      // TODO: Replace with POST to Azure Function if needed
+    });
+  </script>
+
+</body>
+</html>
