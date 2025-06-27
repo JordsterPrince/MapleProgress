@@ -31,6 +31,7 @@
     </table>
 
     <button type="submit">Submit All</button>
+    <div id="results"></div>
   </form>
 
   <script>
@@ -52,9 +53,6 @@
         <td><input type="number" name="${slot}_potential" min="0" max="100" /></td>
       `;
       table.appendChild(row);
-
-      <div id="results"></div>
-
     });
 
     document.getElementById("equipForm").addEventListener("submit", async function(e) {
