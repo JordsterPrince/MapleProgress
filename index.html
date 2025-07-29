@@ -39,26 +39,40 @@
       "Ring 1", "Ring 2", "Ring 3", "Ring 4",
       "Pendant 1", "Pendant 2", "Belt", "Hat",
       "Face", "Eye", "Top", "Bottom", "Shoes",
-      "Earring", "Shoulder", "Glove", "Cape", "Heart"
+      "Earring", "Shoulder", "Glove", "Cape",
+      "Heart", "Pocket" // 👈 add Pocket at the end
     ];
 
     const table = document.getElementById("equipmentTable");
 
     slots.forEach(slot => {
       const isRing = slot.startsWith("Ring");
+      const isPocket = slot === "Pocket";
 
       const row = document.createElement("tr");
+
+      // Flame Input Cell
+      const flameCell = isRing
+        ? "<em>N/A</em>"
+        : `
+          <input type="number" name="${slot}_allstat" placeholder="All%" min="0" style="width: 50px;" />
+          <input type="number" name="${slot}_attack" placeholder="Atk" min="0" style="width: 50px;" />
+          <input type="number" name="${slot}_mainstat" placeholder="Main" min="0" style="width: 50px;" />
+          <input type="number" name="${slot}_secondarystat" placeholder="Sec" min="0" style="width: 50px;" />
+        `;
+
+      // Potential Cell: skip if Pocket
+      const potentialCell = isPocket
+        ? "<em>N/A</em>"
+        : `<input type="number" name="${slot}_potential" min="0" max="100" />`;
+
       row.innerHTML = `
         <td>${slot}</td>
         <td><input type="number" name="${slot}_level" min="0" /></td>
-        <td>
-          <input type="number" name="${slot}_allstat" placeholder="All%" min="0" style="width: 50px;" ${isRing ? "disabled" : ""} />
-          <input type="number" name="${slot}_attack" placeholder="Atk" min="0" style="width: 50px;" ${isRing ? "disabled" : ""} />
-          <input type="number" name="${slot}_mainstat" placeholder="Main" min="0" style="width: 50px;" ${isRing ? "disabled" : ""} />
-          <input type="number" name="${slot}_secondarystat" placeholder="Sec" min="0" style="width: 50px;" ${isRing ? "disabled" : ""} />
-        </td>
-        <td><input type="number" name="${slot}_potential" min="0" max="100" /></td>
+        <td>${flameCell}</td>
+        <td>${potentialCell}</td>
       `;
+
       table.appendChild(row);
     });
 
@@ -70,7 +84,6 @@
 
       slots.forEach(slot => {
         const itemLevel = Number(formData.get(`${slot}_level`)) || 0;
-        const potential = Number(formData.get(`${slot}_potential`)) || 0;
 
         const allStat = Number(formData.get(`${slot}_allstat`)) || 0;
         const attack = Number(formData.get(`${slot}_attack`)) || 0;
@@ -79,6 +92,10 @@
 
         const flameScore = (allStat * 12) + (attack * 3) + mainStat + Math.round(secondaryStat / 12);
 
+        const potential = slot === "Pocket"
+          ? 0  // No input now, but leave the field in
+          : Number(formData.get(`${slot}_potential`)) || 0;
+          
         data[slot] = {
           itemLevel,
           flameScore,
