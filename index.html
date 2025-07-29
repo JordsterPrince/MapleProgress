@@ -46,13 +46,13 @@
     const table = document.getElementById("equipmentTable");
 
     slots.forEach(slot => {
-      const isRing = slot.startsWith("Ring");
+      const isRingOrShoulder = slot.startsWith("Ring") || slot === "Shoulder";
       const isPocket = slot === "Pocket";
 
       const row = document.createElement("tr");
 
       // Flame Input Cell
-      const flameCell = isRing
+      const flameCell = isRingOrShoulder
         ? "<em>N/A</em>"
         : `
           <input type="number" name="${slot}_allstat" placeholder="All%" min="0" style="width: 50px;" />
