@@ -45,11 +45,18 @@
     const table = document.getElementById("equipmentTable");
 
     slots.forEach(slot => {
+      const isRing = slot.startsWith("Ring");
+
       const row = document.createElement("tr");
       row.innerHTML = `
         <td>${slot}</td>
         <td><input type="number" name="${slot}_level" min="0" /></td>
-        <td><input type="number" name="${slot}_flame" min="0" /></td>
+        <td>
+          <input type="number" name="${slot}_allstat" placeholder="All%" min="0" style="width: 50px;" ${isRing ? "disabled" : ""} />
+          <input type="number" name="${slot}_attack" placeholder="Atk" min="0" style="width: 50px;" ${isRing ? "disabled" : ""} />
+          <input type="number" name="${slot}_mainstat" placeholder="Main" min="0" style="width: 50px;" ${isRing ? "disabled" : ""} />
+          <input type="number" name="${slot}_secondarystat" placeholder="Sec" min="0" style="width: 50px;" ${isRing ? "disabled" : ""} />
+        </td>
         <td><input type="number" name="${slot}_potential" min="0" max="100" /></td>
       `;
       table.appendChild(row);
@@ -62,10 +69,20 @@
       const data = {};
 
       slots.forEach(slot => {
+        const itemLevel = Number(formData.get(`${slot}_level`)) || 0;
+        const potential = Number(formData.get(`${slot}_potential`)) || 0;
+
+        const allStat = Number(formData.get(`${slot}_allstat`)) || 0;
+        const attack = Number(formData.get(`${slot}_attack`)) || 0;
+        const mainStat = Number(formData.get(`${slot}_mainstat`)) || 0;
+        const secondaryStat = Number(formData.get(`${slot}_secondarystat`)) || 0;
+
+        const flameScore = (allStat * 12) + (attack * 3) + mainStat + Math.round(secondaryStat / 12);
+
         data[slot] = {
-          itemLevel: Number(formData.get(`${slot}_level`)) || 0,
-          flameScore: Number(formData.get(`${slot}_flame`)) || 0,
-          potential: Number(formData.get(`${slot}_potential`)) || 0
+          itemLevel,
+          flameScore,
+          potential
         };
       });
 
