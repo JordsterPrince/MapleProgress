@@ -61,7 +61,6 @@
       const formData = new FormData(e.target);
       const data = {};
 
-      const slots = [ /* same slot array */ ];
       slots.forEach(slot => {
         data[slot] = {
           itemLevel: Number(formData.get(`${slot}_level`)) || 0,
