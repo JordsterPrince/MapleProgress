@@ -186,10 +186,10 @@ button:hover {
   max-width: 1100px;
   margin: 4rem auto 2rem;
   padding: 1.5rem;
-  background-color: rgba(255, 255, 255, 0.07);
+  background-color: #fff8dc;
   border: 2px solid #a0522d;
   border-radius: 12px;
-  color: #ffd966;
+  color: black;
   font-family: 'Press Start 2P', monospace;
   font-size: 0.65rem;
   line-height: 1.8;
@@ -204,6 +204,11 @@ button:hover {
 }
 
 .footer-notes ul {
-  list-style-type: square;
+  list-style: disc inside;
   padding-left: 1.5rem;
+  text-align: left;
+}
+
+footer li {
+  margin-bottom: 1rem; /* Adds vertical space between bullets */
 }
