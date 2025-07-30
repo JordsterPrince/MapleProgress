@@ -57,6 +57,8 @@
       const isRingOrShoulderOrHeart = slot.startsWith("Ring") || slot === "Shoulder" || slot === "Heart";
       const isPocket = slot === "Pocket";
 
+      const isAccessory = ["Ring", "Pendant", "Belt", "Face", "Eye", "Earring"].some(type => slot.includes(type));
+
       const row = document.createElement("tr");
 
       // Flame Input Cell
@@ -69,6 +71,13 @@
           <input type="number" name="${slot}_secondarystat" placeholder="Sec" min="0" style="width: 50px;" />
         `;
 
+      const nonBossCheckbox = isAccessory
+        ? `<label style="display:block;margin-top:4px;">
+            <input type="checkbox" name="${slot}_nonboss" />
+            Non Boss Flame
+          </label>`
+        : "";
+
       // Potential Cell: skip if Pocket
       const potentialCell = isPocket
         ? "<em>N/A</em>"
@@ -77,7 +86,7 @@
       row.innerHTML = `
         <td>${slot}</td>
         <td><input type="number" name="${slot}_level" min="0" /></td>
-        <td>${flameCell}</td>
+        <td>${flameCell}${nonBossCheckbox}</td>
         <td>${potentialCell}</td>
       `;
 
@@ -92,7 +101,7 @@
 
       slots.forEach(slot => {
         const itemLevel = Number(formData.get(`${slot}_level`)) || 0;
-
+        const nonBoss = formData.get(`${slot}_nonboss`) === "on";
         const allStat = Number(formData.get(`${slot}_allstat`)) || 0;
         const attack = Number(formData.get(`${slot}_attack`)) || 0;
         const mainStat = Number(formData.get(`${slot}_mainstat`)) || 0;
@@ -107,7 +116,8 @@
         data[slot] = {
           itemLevel,
           flameScore,
-          potential
+          potential,
+          nonBoss
         };
       });
 
