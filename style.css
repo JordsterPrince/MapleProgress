@@ -4,7 +4,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 body {
-  background: url('https://external-preview.redd.it/4x7Yr1uMePsgC0ywvvsW_mKGA8K4XEdeNNSS_z0VsBg.jpg?width=1080&crop=smart&auto=webp&s=47d66a3f78c6a232d9322baf06e9f3b1c2eacde4') center/cover fixed;
+  background: url('MapleTreeBackground.jpg') center/cover fixed;
   color: #3C2A21;
   font-family: 'Press Start 2P', monospace;
   padding: 2rem;
