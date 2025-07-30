@@ -37,7 +37,11 @@
         <!-- Rows will be injected by JS -->
       </tbody>
     </table>
-
+    <label for="sortMode">Sort By:</label>
+    <select id="sortMode" name="sortMode">
+      <option value="cost">Cost</option>
+      <option value="efficiency">Cost Per 5 Score</option>
+    </select>
     <button type="submit">Submit All</button>
     <div id="results"></div>
   </form>
@@ -98,6 +102,7 @@
 
       const formData = new FormData(e.target);
       const data = {};
+      data.sortMode = document.getElementById("sortMode").value;
 
       slots.forEach(slot => {
         const itemLevel = Number(formData.get(`${slot}_level`)) || 0;
