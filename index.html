@@ -68,10 +68,10 @@
       const flameCell = isRingOrShoulderOrHeart
         ? "<em>N/A</em>"
         : `
-          <input type="number" name="${slot}_allstat" placeholder="All%" min="0" style="width: 50px;" />
-          <input type="number" name="${slot}_attack" placeholder="Atk" min="0" style="width: 50px;" />
-          <input type="number" name="${slot}_mainstat" placeholder="Main" min="0" style="width: 50px;" />
-          <input type="number" name="${slot}_secondarystat" placeholder="Sec" min="0" style="width: 50px;" />
+          <input type="number" name="${slot}_allstat" placeholder="All%" min="0" />
+          <input type="number" name="${slot}_attack" placeholder="Atk" min="0" />
+          <input type="number" name="${slot}_mainstat" placeholder="Main" min="0" />
+          <input type="number" name="${slot}_secondarystat" placeholder="Sec" min="0" />
         `;
 
       const nonBossCheckbox = isAccessory && !slot.startsWith("Ring")
