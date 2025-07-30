@@ -58,7 +58,8 @@
     });
 
     window.addEventListener('load', function () {
-      loader.classList.add('hidden');
+      const loader = document.getElementById('loader');
+      if (loader) loader.classList.add('hidden');
     });
     const slots = [
       "Ring 1", "Ring 2", "Ring 3", "Ring 4",

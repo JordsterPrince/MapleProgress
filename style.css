@@ -140,9 +140,17 @@ button:hover {
   min-width: 180px; /* ensures "Cost Per 5 Score" fits */
 }
 
+.form-controls select:hover {
+  background-color: #333;
+}
+
 .form-controls select:focus {
   outline: none;
   box-shadow: 0 0 8px #ffa500;
+}
+
+.form-controls button {
+  margin-top: 0;
 }
 
 .spinner {
