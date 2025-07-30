@@ -71,7 +71,7 @@
           <input type="number" name="${slot}_secondarystat" placeholder="Sec" min="0" style="width: 50px;" />
         `;
 
-      const nonBossCheckbox = isAccessory
+      const nonBossCheckbox = isAccessory && !slot.startsWith("Ring")
         ? `<label style="display:block;margin-top:4px;">
             <input type="checkbox" name="${slot}_nonboss" />
             Non Boss Flame
