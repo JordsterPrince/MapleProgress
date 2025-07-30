@@ -108,3 +108,40 @@ button:hover {
   max-width: 1200px;
   margin: auto;
 }
+
+.form-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  background-color: #2b2b3c;
+  padding: 1rem 1.5rem;
+  border: 2px solid #a0522d;
+  border-radius: 8px;
+  margin: 2rem auto;
+  width: fit-content;
+  color: #ffcc00;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+}
+
+.form-controls label {
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: #ffcc00;
+}
+
+.form-controls select {
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: none;
+  background-color: #1a1a1a;
+  color: #fff;
+  font-family: 'Press Start 2P', monospace;
+  min-width: 180px; /* ensures "Cost Per 5 Score" fits */
+}
+
+.form-controls select:focus {
+  outline: none;
+  box-shadow: 0 0 8px #ffa500;
+}
+
