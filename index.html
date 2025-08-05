@@ -132,7 +132,17 @@
       data.sortMode = document.getElementById("sortMode").value;
 
       slots.forEach(slot => {
-        const itemLevel = Number(formData.get(`${slot}_level`)) || 0;
+        let itemLevel = Number(formData.get(`${slot}_level`)) || 0;
+        let flameLevel = itemLevel;
+        let potentialLevel = itemLevel;
+
+        // 🔄 Adjust levels based on rules
+        if (itemLevel < 140) {
+          potentialLevel = 140;
+          if (itemLevel > 120) {
+            flameLevel = 130;
+          }
+        }
         const nonBoss = formData.get(`${slot}_nonboss`) === "on";
         const allStat = Number(formData.get(`${slot}_allstat`)) || 0;
         const attack = Number(formData.get(`${slot}_attack`)) || 0;
@@ -149,7 +159,9 @@
           itemLevel,
           flameScore,
           potential,
-          nonBoss
+          nonBoss,
+          flameLevel,        // custom-added for flame logic on backend
+          potentialLevel     // custom-added for potential logic on backend 
         };
       });
 
