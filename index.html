@@ -27,6 +27,17 @@
 <body>
   <h1>Maple Progress</h1>
   <p class="subtitle">By: KingJordster</p>
+  <!-- Preset Saving -->
+  <div class="form-controls">
+    <label for="presetSlot">Preset Slot:</label>
+    <select id="presetSlot">
+      <option value="1">Preset 1</option>
+      <option value="2">Preset 2</option>
+      <option value="3">Preset 3</option>
+    </select>
+    <button type="button" id="savePresetBtn">💾 Save Preset</button>
+    <button type="button" id="loadPresetBtn">📂 Load Preset</button>
+  </div>
   <form id="equipForm">
     <!-- Equipment Input -->
     <table>
@@ -53,17 +64,7 @@
     <div id="results"></div>
     <div id="loader" class="spinner hidden"></div>
   </form>
-  <!-- Preset Saving -->
-  <div class="form-controls">
-    <label for="presetSlot">Preset Slot:</label>
-    <select id="presetSlot">
-      <option value="1">Preset 1</option>
-      <option value="2">Preset 2</option>
-      <option value="3">Preset 3</option>
-    </select>
-    <button type="button" id="savePresetBtn">💾 Save Preset</button>
-    <button type="button" id="loadPresetBtn">📂 Load Preset</button>
-  </div>
+
   <script>
     const slots = [
       "Ring 1", "Ring 2", "Ring 3", "Ring 4",
@@ -188,14 +189,27 @@
 
       slots.forEach(slot => {
         const entry = data[slot] || {};
-        document.querySelector(`[name="${slot}_level"]`).value = entry.itemLevel || "";
-        document.querySelector(`[name="${slot}_potential"]`)?.value = entry.potential || "";
-        document.querySelector(`[name="${slot}_nonboss"]`)?.checked = entry.nonBoss || false;
 
-        document.querySelector(`[name="${slot}_allstat"]`)?.value = "";
-        document.querySelector(`[name="${slot}_attack"]`)?.value = "";
-        document.querySelector(`[name="${slot}_mainstat"]`)?.value = "";
-        document.querySelector(`[name="${slot}_secondarystat"]`)?.value = "";
+        const levelInput = document.querySelector(`[name="${slot}_level"]`);
+        if (levelInput) levelInput.value = entry.itemLevel || "";
+
+        const potentialInput = document.querySelector(`[name="${slot}_potential"]`);
+        if (potentialInput) potentialInput.value = entry.potential || "";
+
+        const nonBossCheckbox = document.querySelector(`[name="${slot}_nonboss"]`);
+        if (nonBossCheckbox) nonBossCheckbox.checked = entry.nonBoss || false;
+
+        const allstatInput = document.querySelector(`[name="${slot}_allstat"]`);
+        if (allstatInput) allstatInput.value = "";
+
+        const attackInput = document.querySelector(`[name="${slot}_attack"]`);
+        if (attackInput) attackInput.value = "";
+
+        const mainstatInput = document.querySelector(`[name="${slot}_mainstat"]`);
+        if (mainstatInput) mainstatInput.value = "";
+
+        const secstatInput = document.querySelector(`[name="${slot}_secondarystat"]`);
+        if (secstatInput) secstatInput.value = "";
       });
     }
 
