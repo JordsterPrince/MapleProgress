@@ -114,6 +114,10 @@
       `;
 
       table.appendChild(row);
+      const defaultPreset = localStorage.getItem("maplePreset_1");
+      if (defaultPreset) {
+        setFormData(JSON.parse(defaultPreset));
+      }
     });
 
     document.getElementById("equipForm").addEventListener("submit", async function(e) {
@@ -215,12 +219,6 @@
         alert(`Preset ${presetSlot} loaded!`);
       } else {
         alert(`No preset saved in slot ${presetSlot}.`);
-      }
-    });
-    window.addEventListener("DOMContentLoaded", () => {
-      const defaultPreset = localStorage.getItem("maplePreset_1");
-      if (defaultPreset) {
-        setFormData(JSON.parse(defaultPreset));
       }
     });
   </script>
