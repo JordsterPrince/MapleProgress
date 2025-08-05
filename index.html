@@ -27,17 +27,6 @@
 <body>
   <h1>Maple Progress</h1>
   <p class="subtitle">By: KingJordster</p>
-  <!-- Preset Saving -->
-  <div class="form-controls">
-    <label for="presetSlot">Preset Slot:</label>
-    <select id="presetSlot">
-      <option value="1">Preset 1</option>
-      <option value="2">Preset 2</option>
-      <option value="3">Preset 3</option>
-    </select>
-    <button type="button" id="savePresetBtn">💾 Save Preset</button>
-    <button type="button" id="loadPresetBtn">📂 Load Preset</button>
-  </div>
   <form id="equipForm">
     <!-- Equipment Input -->
     <table>
@@ -64,7 +53,17 @@
     <div id="results"></div>
     <div id="loader" class="spinner hidden"></div>
   </form>
-
+  <!-- Preset Saving -->
+  <div class="form-controls">
+    <label for="presetSlot">Preset Slot:</label>
+    <select id="presetSlot">
+      <option value="1">Preset 1</option>
+      <option value="2">Preset 2</option>
+      <option value="3">Preset 3</option>
+    </select>
+    <button type="button" id="savePresetBtn">💾 Save Preset</button>
+    <button type="button" id="loadPresetBtn">📂 Load Preset</button>
+  </div>
   <script>
     const slots = [
       "Ring 1", "Ring 2", "Ring 3", "Ring 4",
