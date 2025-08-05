@@ -106,8 +106,14 @@
         ? "<em>N/A</em>"
         : `<input type="number" name="${slot}_potential" min="0" max="100" />`;
 
+      // Special note for Ring 4 Oz Rings
+      let ring4Note = "";
+      if (slot === "Ring 4") {
+        ring4Note = `<div style="font-size: 11px; color: #555;">If Oz ring, leave blank</div>`;
+      }
+
       row.innerHTML = `
-        <td>${slot}</td>
+        <td>${slot}${ring4Note}</td>
         <td><input type="number" name="${slot}_level" min="0" /></td>
         <td>${flameCell}${nonBossCheckbox}</td>
         <td>${potentialCell}</td>
