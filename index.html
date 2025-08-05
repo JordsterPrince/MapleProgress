@@ -29,6 +29,18 @@
   <h1>Maple Progress</h1>
   <p class="subtitle">By: KingJordster</p>
   <form id="equipForm">
+    <!-- Preset Saving -->
+    <div class="form-controls">
+      <label for="presetSlot">Preset Slot:</label>
+      <select id="presetSlot">
+        <option value="1">Preset 1</option>
+        <option value="2">Preset 2</option>
+        <option value="3">Preset 3</option>
+      </select>
+      <button type="button" id="savePresetBtn">💾 Save Preset</button>
+      <button type="button" id="loadPresetBtn">📂 Load Preset</button>
+    </div>
+    <!-- Equipment Input -->
     <table>
       <thead>
         <tr>
@@ -150,6 +162,66 @@
         document.getElementById("results").innerHTML = "<p>Something went wrong. Please try again.</p>";
       } finally {
         loader.classList.add("hidden"); // ✅ Always hide spinner
+      }
+    });
+    // Preset saving logic
+    function getFormData() {
+      const formData = new FormData(document.getElementById("equipForm"));
+      const data = {};
+      data.sortMode = document.getElementById("sortMode").value;
+
+      slots.forEach(slot => {
+        const itemLevel = Number(formData.get(`${slot}_level`)) || 0;
+        const nonBoss = formData.get(`${slot}_nonboss`) === "on";
+        const allStat = Number(formData.get(`${slot}_allstat`)) || 0;
+        const attack = Number(formData.get(`${slot}_attack`)) || 0;
+        const mainStat = Number(formData.get(`${slot}_mainstat`)) || 0;
+        const secondaryStat = Number(formData.get(`${slot}_secondarystat`)) || 0;
+        const potential = slot === "Pocket" ? 0 : Number(formData.get(`${slot}_potential`)) || 0;
+
+        data[slot] = { itemLevel, flameScore: (allStat * 12) + (attack * 3) + mainStat + Math.round(secondaryStat / 12), potential, nonBoss };
+      });
+
+      return data;
+    }
+
+    function setFormData(data) {
+      document.getElementById("sortMode").value = data.sortMode || "cost";
+
+      slots.forEach(slot => {
+        const entry = data[slot] || {};
+        document.querySelector(`[name="${slot}_level"]`).value = entry.itemLevel || "";
+        document.querySelector(`[name="${slot}_potential"]`)?.value = entry.potential || "";
+        document.querySelector(`[name="${slot}_nonboss"]`)?.checked = entry.nonBoss || false;
+
+        document.querySelector(`[name="${slot}_allstat"]`)?.value = "";
+        document.querySelector(`[name="${slot}_attack"]`)?.value = "";
+        document.querySelector(`[name="${slot}_mainstat"]`)?.value = "";
+        document.querySelector(`[name="${slot}_secondarystat"]`)?.value = "";
+      });
+    }
+
+    document.getElementById("savePresetBtn").addEventListener("click", () => {
+      const presetSlot = document.getElementById("presetSlot").value;
+      const data = getFormData();
+      localStorage.setItem(`maplePreset_${presetSlot}`, JSON.stringify(data));
+      alert(`Preset ${presetSlot} saved!`);
+    });
+
+    document.getElementById("loadPresetBtn").addEventListener("click", () => {
+      const presetSlot = document.getElementById("presetSlot").value;
+      const savedData = localStorage.getItem(`maplePreset_${presetSlot}`);
+      if (savedData) {
+        setFormData(JSON.parse(savedData));
+        alert(`Preset ${presetSlot} loaded!`);
+      } else {
+        alert(`No preset saved in slot ${presetSlot}.`);
+      }
+    });
+    window.addEventListener("DOMContentLoaded", () => {
+      const defaultPreset = localStorage.getItem("maplePreset_1");
+      if (defaultPreset) {
+        setFormData(JSON.parse(defaultPreset));
       }
     });
   </script>
